@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import Login from './pages/login';
 import Newcount from './pages/newcount';
@@ -15,10 +13,9 @@ import HostGame from './pages/hostGame';
 import PlayerGame from './pages/playerGame';
 import NewQuiz from './pages/newQuiz';
 import Profile from './pages/profile';
+import JoinGame from './pages/joinGame';
 import useStore from './store';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-
-
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 
@@ -56,6 +53,7 @@ function App() {
         <Route path="/game" element={<PlayerGame/>}/>
         <Route path = "/choose" element={<NewQuiz/>}/>
         <Route path = "/profile" element={<Profile/>}/>
+        <Route path="/join-game/:pin" element={<JoinGame />} />
         <Route path="/*" element={<Notfound/>} />
 
       </Routes>

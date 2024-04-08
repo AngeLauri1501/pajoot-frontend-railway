@@ -6,6 +6,7 @@ import Lobbysound from '../../public/assets/sounds/lobby-classic-game.mp3';
 const HostLobby = () => {
   const { game, setGame, muted, setMuted, isMuted, setIsMuted} = useStore();
   const audioRef = useRef(null);
+  const [qrCode, setQrCode] = useState('');
 
   useEffect(() => {
     if (audioRef.current && !muted) {
@@ -32,6 +33,12 @@ const HostLobby = () => {
     };
   }, [setGame]);
 
+  useEffect(() => {
+    // Cuando el componente se monta, generamos un código QR único para la partida actual
+    const qrCodeData = `https://pajoot-frontend-railway-production.up.railway.app/join-game/${game.pin}`; // URL a la que se redirigirá al escanear el código QR
+    setQrCode(qrCodeData);
+  }, [game.pin]);
+
   function handleCancelGame() {
     socket.emit('closeGame', JSON.stringify({ pin: game.pin }));
     window.location.href = '/';
@@ -49,6 +56,7 @@ const HostLobby = () => {
       <p>Código</p>
 
       {game && (<h1>{game.pin}</h1>)}
+      {qrCode && <img src={`https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrCode)}`} alt="QR Code" />}
 
       <p>Jugadores</p>
       <div className='lobby-content'>
