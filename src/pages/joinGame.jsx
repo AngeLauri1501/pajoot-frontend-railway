@@ -15,7 +15,7 @@ function JoinGame() {
         if (userLogged) {
             socket.emit('playerJoin',JSON.stringify({pin:pin, playerName:userLogged.displayName, playerId:userLogged.uid, photoURL:userLogged.photoURL}))  
         }
-    }, [userLogged]);
+    }, []);
 
     useEffect(() => {
         socket.on('playerJoined', (game) => {
