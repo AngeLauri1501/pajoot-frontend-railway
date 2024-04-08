@@ -34,10 +34,12 @@ const HostLobby = () => {
   }, [setGame]);
 
   useEffect(() => {
+    if (game) {
     // Cuando el componente se monta, generamos un código QR único para la partida actual
     const qrCodeData = `https://pajoot-frontend-railway-production.up.railway.app/join-game/${game.pin}`; // URL a la que se redirigirá al escanear el código QR
     setQrCode(qrCodeData);
-  }, [game.pin]);
+    }
+  }, []);
 
   function handleCancelGame() {
     socket.emit('closeGame', JSON.stringify({ pin: game.pin }));
