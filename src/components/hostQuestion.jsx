@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef} from 'react';
 import { socket } from '../socket';
 import Countdown from 'react-countdown';
 import useStore from '../store';
-import question10 from '../assets/sounds/question-groovy-10.mp3';
-import question20 from '../assets/sounds/question-groovy-20.mp3';
-import question30 from '../assets/sounds/question-groovy-30.mp3';
-import question60 from '../assets/sounds/question-groovy-60.mp3';
-import question120 from '../assets/sounds/question-groovy-120.mp3';
+import question10 from '../../public/assets/sounds/question-groovy-10.mp3';
+import question20 from '../../public/assets/sounds/question-groovy-20.mp3';
+import question30 from '../../public/assets/sounds/question-groovy-30.mp3';
+import question60 from '../../public/assets/sounds/question-groovy-60.mp3';
+import question120 from '../../public/assets/sounds/question-groovy-120.mp3';
 
 
 const HostQuestion = () => {
