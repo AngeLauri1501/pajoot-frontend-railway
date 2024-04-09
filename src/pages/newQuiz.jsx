@@ -35,6 +35,18 @@ const NewQuiz = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (game) {
+      window.location.href = '/';
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!userLogged) {
+      window.location.href = '/';
+    }
+  }, []);
+
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
@@ -60,7 +72,7 @@ const NewQuiz = () => {
   const handleCreateGame = () => {
     if (selectedThemes.length === 0) {
       setError('Debes seleccionar al menos una temática');
-      setErrorImage('./assets/img/alerta(1).png');
+      setErrorImage('./assets/img/error.png');
       return;
     }
     socket.emit('createGame', JSON.stringify({ 
@@ -170,11 +182,11 @@ const NewQuiz = () => {
           </div>
         </div>
         </div>
+      {error && <div className='error-message'><img src={errorImage} alt='Imagen alerta'className='icono-error'/><p className='error'>{error}</p></div>}
         <button className='start-button' onClick={handleCreateGame}>
           Iniciar Juego
         </button>
       </div>
-      {error && <div className='error-message'><img src={errorImage} alt='Imagen alerta'/><p className='error'>{error}</p></div>}
     </>
   );
 };

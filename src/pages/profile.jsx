@@ -131,7 +131,7 @@ const Profile = () => {
                 <div className="entry-credentials new-credentials">
                     <form className="form-login form-create" onSubmit={handleSubmit}>
                         <p>Nombre</p>
-                        <input type='text' className="form-login_input" name='nombre' placeholder="Nombre" value={user} onChange={handleInputChange} required/>
+                        <input type='text' className="form-login_input" name='nombre' placeholder="Nombre" maxLength={20} value={user} onChange={handleInputChange} required/>
                         <p>Avatar</p>
                         <img src={userLogged.photoURL === null ? './assets/img/usuario-de-perfil.png' : userLogged.photoURL} onChange={handleImageChange} className='user-avatar' alt='Avatar-Usuario' />
                         <button type='button' className='form-avatar_button' onClick={handleChooseAvatar}>Elegir otro</button>

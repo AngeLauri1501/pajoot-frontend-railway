@@ -53,6 +53,20 @@ const Home = () => {
         );
       },[userLogged]);
 
+      useEffect(() => {
+        if(game){
+            setGame(null);
+        }
+        if(userLogged){
+            if(!userLogged.accessToken){
+                setUserLogged(null);
+            }
+            
+        }
+        },[]);
+
+
+
     const handleLogout = () => {
         // Cerrar sesión
         console.log('Cerrando sesión..');
@@ -129,7 +143,7 @@ const Home = () => {
                     <p className='entry-title'>Unirse de manera anónima</p>
                     <form className="form-login form-create" onSubmit={e => handleAnonJoin(e)}>
                         <p>Introduce un nombre</p>
-                        <input type='text' className="form-login_input" name='nombre' placeholder="Nombre" onChange={e => setAnonName(e.currentTarget.value)}required/>
+                        <input type='text' className="form-login_input" name='nombre' placeholder="Nombre" maxLength={20} onChange={e => setAnonName(e.currentTarget.value)}required/>
                         <p>Introduce código de juego</p>
                         <input type='number' className="form-login_input" name='codigo' placeholder="Código" min='0' max='99999' onChange={e => setGameCode(e.currentTarget.value)}required/>
                         <input type='submit' className="form-login_button" value="Unirse"/>
