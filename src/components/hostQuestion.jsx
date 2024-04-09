@@ -18,7 +18,16 @@ const HostQuestion = () => {
     // Puedes personalizar el formato según tus necesidades
     return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 };
-//const audioPath = `../../public/assets/sounds/question-groovy-${game.timeLimit}.mp3`;
+const audioMap = {
+  10: question10,
+  20: question20,
+  30: question30,
+  60: question60,
+  120: question120
+};
+
+// Obtener la ruta del archivo de audio según el límite de tiempo del juego
+const audioSrc = audioMap[game.timeLimit];
 
 useEffect(() => {
 
@@ -52,7 +61,7 @@ const toggleMute = () => {
   return (
     <div className='question-container'>
       <button onClick={toggleMute}>{muted ? 'Desmutear' : 'Mutear'}</button>
-      <audio id='lobby-music' src={question20} autoPlay ref={audioRef} />
+      <audio id='lobby-music' src={audioSrc} autoPlay ref={audioRef} />
         <div className="form-verify_countdown">
           <h1><Countdown date={targetDate} renderer={({ minutes, seconds }) => formatTime({ minutes, seconds })} onComplete={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}/></h1>
         </div>
