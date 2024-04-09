@@ -2,6 +2,12 @@ import React, { useState, useEffect, useRef} from 'react';
 import { socket } from '../socket';
 import Countdown from 'react-countdown';
 import useStore from '../store';
+import question10 from '../assets/sounds/question-groovy-10.mp3';
+import question20 from '../assets/sounds/question-groovy-20.mp3';
+import question30 from '../assets/sounds/question-groovy-30.mp3';
+import question60 from '../assets/sounds/question-groovy-60.mp3';
+import question120 from '../assets/sounds/question-groovy-120.mp3';
+
 
 const HostQuestion = () => {
 
@@ -12,7 +18,7 @@ const HostQuestion = () => {
     // Puedes personalizar el formato según tus necesidades
     return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 };
-const audioPath = `../../public/assets/sounds/question-groovy-${game.timeLimit}.mp3`;
+//const audioPath = `../../public/assets/sounds/question-groovy-${game.timeLimit}.mp3`;
 
 useEffect(() => {
 
@@ -46,7 +52,7 @@ const toggleMute = () => {
   return (
     <div className='question-container'>
       <button onClick={toggleMute}>{muted ? 'Desmutear' : 'Mutear'}</button>
-      <audio id='lobby-music' src={audioPath} autoPlay ref={audioRef} />
+      <audio id='lobby-music' src={question[game.timeLimit]} autoPlay ref={audioRef} />
         <div className="form-verify_countdown">
           <h1><Countdown date={targetDate} renderer={({ minutes, seconds }) => formatTime({ minutes, seconds })} onComplete={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}/></h1>
         </div>
