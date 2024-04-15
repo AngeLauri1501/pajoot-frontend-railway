@@ -6,7 +6,6 @@ import Lobbysound from '../../public/assets/sounds/lobby-classic-game.mp3';
 const HostLobby = () => {
   const { game, setGame, muted, setMuted, isMuted, setIsMuted} = useStore();
   const audioRef = useRef(null);
-  const [qrCode, setQrCode] = useState('');
 
   useEffect(() => {
     if (audioRef.current && !muted) {
@@ -33,14 +32,6 @@ const HostLobby = () => {
     };
   }, [setGame]);
 
-  useEffect(() => {
-    if (game) {
-    // Cuando el componente se monta, generamos un código QR único para la partida actual
-    const qrCodeData = `https://pajoot-frontend-railway-production.up.railway.app/join-game/${game.pin}`; // URL a la que se redirigirá al escanear el código QR
-    setQrCode(qrCodeData);
-    }
-  }, []);
-
   function handleCancelGame() {
     socket.emit('closeGame', JSON.stringify({ pin: game.pin }));
     window.location.href = '/';
@@ -52,13 +43,18 @@ const HostLobby = () => {
   }
 
   return (
+    <>
+    <button className='mute-button' onClick={toggleMute}>{muted ? (
+        <img src='./assets/img/silenciar.png' alt="Sonido silenciado" />
+      ) : (
+        <img src='./assets/img/activar.png' alt="Sonido activado" />
+      )}</button>
+
     <div className='lobby-container'>
-      <button onClick={toggleMute}>{muted ? 'Desmutear' : 'Mutear'}</button>
       <audio id='lobby-music' src={Lobbysound} loop autoPlay ref={audioRef} />
       <p>Código</p>
 
       {game && (<h1>{game.pin}</h1>)}
-      {qrCode && <img src={`https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrCode)}`} alt="QR Code" />}
 
       <p>Jugadores</p>
       <div className='lobby-content'>
@@ -75,7 +71,9 @@ const HostLobby = () => {
         <button className='lobby-button' onClick={() => socket.emit('startGame', JSON.stringify({ pin: game.pin }))}>Iniciar</button>
       </div>
     </div>
+    </>
   );
 };
+
 
 export default HostLobby;
