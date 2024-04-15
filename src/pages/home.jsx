@@ -16,6 +16,7 @@ const Home = () => {
     const [anonName, setAnonName] = useState(null);
     const [gameCode, setGameCode] = useState(0);
     const auth = getAuth(app);
+    const [errorImage, setErrorImage] = useState(null);
 
     // Comprobar si hay un email en el estado global al cargar la página
     useEffect(() => {
@@ -45,6 +46,7 @@ const Home = () => {
         });
 
         socket.on('joinError', (error) => {
+            setErrorImage('./assets/img/error-red.png');
             setError(error.message);
             if(anonName){
                 setUserLogged(null);
@@ -146,8 +148,8 @@ const Home = () => {
                         <input type='text' className="form-login_input" name='nombre' placeholder="Nombre" maxLength={20} onChange={e => setAnonName(e.currentTarget.value)}required/>
                         <p>Introduce código de juego</p>
                         <input type='number' className="form-login_input" name='codigo' placeholder="Código" min='0' max='99999' onChange={e => setGameCode(e.currentTarget.value)}required/>
+                        {error && <div className='error-message'><img src={errorImage} alt='Imagen alerta'className='icono-error'/><p className='error'>{error}</p></div>}
                         <input type='submit' className="form-login_button" value="Unirse"/>
-                        {error && <p className="error-message">{error}</p>}
                     </form>
                 </div>
                 )}
