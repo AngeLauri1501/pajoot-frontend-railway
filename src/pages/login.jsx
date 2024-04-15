@@ -16,8 +16,11 @@ const Login = () => {
     const { userLogged, setUserLogged } = useStore();
     const navigate = useNavigate();
     const provider = new GoogleAuthProvider();
+    const [errorImage, setErrorImage] = useState(null);
 
     useEffect(() => {
+        setErrorImage('./assets/img/error-red.png');
+
         if (userLogged) {
             navigate('/');
         }
@@ -117,8 +120,8 @@ const Login = () => {
                 <form onSubmit={handleSubmit} method='POST' className="form-login" action=''>
                     <input type='email' onChange={handleEmailChange} className="form-login_input" name='correu' placeholder="Email" required/>
                     <input type="password" onChange={handlePasswordChange} className="form-login_input" name="contrasenya" placeholder="Contraseña" required/>
+                    {error && <div className='error-message'><img src={errorImage} alt='Imagen alerta'className='icono-error'/><p className='error'>{error}</p></div>}
                     <input type='submit' className="form-login_button" value={mutation.isLoading ? 'Accediendo...' : 'Acceder'} disabled= {mutation.isLoading}/>
-                    {error && <p className="error-message">{error}</p>}
                 </form>
             </div>
             <p className="register-text">Todavía no estás registrado?</p><br/><a href="/register" className="register-new">Regístrate aquí</a>
