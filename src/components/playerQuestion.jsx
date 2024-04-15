@@ -63,16 +63,23 @@ const PlayerQuestion = () => {
   };
  
   return (
+    <>
     <div className='question-container'>
       {game && game.remoteMode &&(
       <>
-      <button onClick={toggleMute}>{muted ? 'Desmutear' : 'Mutear'}</button>
       <audio id='lobby-music' src={audioPath} autoPlay ref={audioRef} />
       </>
       )}
+      <div className='form-top'>
         <div className="form-verify_countdown">
           <h1><Countdown date={targetDate} renderer={({ minutes, seconds }) => formatTime({ minutes, seconds })} onComplete={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}/></h1>
         </div>
+        <button className='mute-button' onClick={toggleMute}>{muted ? (
+        <img src='./assets/img/silenciar.png' alt="Sonido silenciado" />
+        ) : (
+        <img src='./assets/img/activar.png' alt="Sonido activado" />
+        )}</button> 
+      </div>
         {game && game.remoteMode &&(
         <div className='question-content'>
           <p>{question.pregunta}</p>
@@ -88,6 +95,7 @@ const PlayerQuestion = () => {
         <h1 className='question-score'>Puntuación: {score.toFixed()}</h1>
       </div>
     </div>
+    </>
   );
 };
 
