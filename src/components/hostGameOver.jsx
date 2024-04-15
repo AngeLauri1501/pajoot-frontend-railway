@@ -11,26 +11,30 @@ const HostGameOver = () => {
   // Ordenar los jugadores por puntuación
   const sortedPlayers = players.sort((a, b) => b.gameData.score - a.gameData.score);
 
+  const topThreePlayers = sortedPlayers.slice(0, 3);
+
   function handleCloseGame(){
     socket.emit('closeGame', JSON.stringify({ pin: game.pin }));
     window.location.href = '/';
   }
 
   return (
-    <div className='question-container podium-container'>
+    <div className='podium-container'>
       <h1>Podium Final</h1>
       <div className='podium-content'>
         <ul className='ranking-list'>
           {/* Mapear y renderizar los jugadores en orden de puntuación */}
-          {sortedPlayers.map((player, index) => (
+          {topThreePlayers.map((player, index) => (
             <li className='ranking-player' key={player.playerId}>
-              <p>{index + 1}.</p>
-              <img className='ranking-image' src={player.photo} alt={player.name} style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '10px' }} />
-              {player.name}: {(player.gameData.score).toFixed()}
+              <img className='ranking-image' src={player.photo} alt={player.name} />
+              {player.name}
+              <div className='id-number'>
+              <p className='id-number-content'>{index + 1}</p>
+              </div>
             </li>
           ))}
         </ul>
-        <button className='question-button_next' onClick={(handleCloseGame)}>Volver a Inicio</button>
+        <button className='return-button' onClick={(handleCloseGame)}>Volver a Inicio</button>
       </div>
     </div>
   );
