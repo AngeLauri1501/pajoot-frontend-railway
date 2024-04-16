@@ -67,6 +67,10 @@ hr {
         width: auto;
     }
 }
+.remote-timeout {
+    display: flex;
+    gap: 24px;
+}
 .entry-container {
     display: flex;
     flex-direction: column;
@@ -476,13 +480,12 @@ hr {
     }
     p {
         font-size: 20px;
-        font-weight: 600;
         margin: 0;
     }
     .form-top {
         display: flex;
         align-items: center;
-        width: 50%;
+        width: 54%;
         margin: 0 8px 0 auto;
     }
     .lobby-content {
@@ -513,7 +516,7 @@ hr {
     .question-content {
         display: flex;
         background-color: #FFF;
-        padding: 32px 40px;
+        padding: 24px;
         min-height: 200px;
         max-width: 1160px;
         align-items: center;
@@ -569,7 +572,8 @@ hr {
 }
 .question-container {
     padding: 0;
-    margin-bottom: 64px;
+    padding-bottom: 16px;
+    margin-bottom: 32px;
     .form-verify_countdown {
         margin: 16px 0;
     }
@@ -621,12 +625,12 @@ hr {
         font-size: 20px;
         font-weight: 500;
         color: #FFF;
-        padding: 16px 10px;
+        padding: 16px 24px;
         border-radius: 4px;
         background-color:#1688A1;
         border-style: none;
         box-shadow: 2px 2px 2px 0 #003946;
-        width: 30%;
+        width: fit-content;
         margin-top: 32px;
         &:active {
             box-shadow: inset 1px 1px 2px 2px #015669;
@@ -645,14 +649,24 @@ hr {
             outline: none;
         }
     }
-    .question-answered {
-        align-self: flex-start;
-        margin: 0 0 24px 24px;
-        .question-players{
-            font-size: 56px;
+    .question-bottom {
+        display: flex;
+        align-items: center;
+        width: 60%;
+        margin: 8px auto 8px 8px;
+        .question-answered {
+            align-self: flex-start;
+            margin: 0 auto 8px 8px;
+            .question-players{
+                font-size: 56px;
+            }
+            .question-score {
+                font-size: 56px;
+                line-height: 150%;
+            }
         }
-        .question-score {
-            font-size: 56px;
+        .question-button_next {
+            margin: 0;
         }
     }
 }
@@ -661,6 +675,7 @@ hr {
     font-size: 22px;
     margin-bottom: 32px;
     font-weight: 600;
+    margin: 24px auto;
     p {
         color: #1C1C1C;
     }
@@ -691,12 +706,12 @@ hr {
     font-size: 20px;
     font-weight: 500;
     color: #FFF;
-    padding: 16px 10px;
+    padding: 16px 24px;
     border-radius: 4px;
     background-color:#037189;
     border-style: none;
     box-shadow: 2px 2px 2px 0 #003946;
-    width: 50%;
+    width: fit-content;
     cursor: pointer;
     &:active {
         box-shadow: inset 1px 1px 2px 2px #015669;
@@ -708,10 +723,12 @@ hr {
         background-color: #015669;
     }
 }
+.ranking-container {
+    width: 500px;
+    min-height: 540px;
+}
 .ranking-container,
 .podium-container {
-    width: 500px;
-    min-height: 500px;
     justify-content: space-between;
     padding: 24px;
     .ranking-content,
@@ -761,6 +778,7 @@ hr {
 }
 .podium-container {
     width: 800px;
+    min-height: 500px;
     .podium-content {
         align-items: center;
         .ranking-list {
@@ -816,7 +834,7 @@ hr {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 24px 0;
+        margin: 16px 0;
         gap: 8px;
         p {
             font-weight: 600;
