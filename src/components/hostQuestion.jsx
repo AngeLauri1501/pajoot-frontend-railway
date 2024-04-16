@@ -57,10 +57,16 @@ const toggleMute = () => {
   setMuted(!muted);
   setIsMuted(!isMuted);
 };
-
+  
   return (
+    <>
+      <button className='mute-button' onClick={toggleMute}>{muted ? (
+        <img src='./assets/img/silenciar.png' alt="Sonido silenciado" />
+      ) : (
+        <img src='./assets/img/activar.png' alt="Sonido activado" />
+      )}</button>
+
     <div className='question-container'>
-      <button onClick={toggleMute}>{muted ? 'Desmutear' : 'Mutear'}</button>
       <audio id='lobby-music' src={audioSrc} autoPlay ref={audioRef} />
         <div className="form-verify_countdown">
           <h1><Countdown date={targetDate} renderer={({ minutes, seconds }) => formatTime({ minutes, seconds })} onComplete={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}/></h1>
@@ -81,6 +87,7 @@ const toggleMute = () => {
           <p>Han contestado</p><h1 className='question-players'> {game.gameData.playersAnswered} / {game.gameData.players.players.length}</h1><p>jugadores</p>
         </div>
     </div>
+    </>
   );
 };
 
