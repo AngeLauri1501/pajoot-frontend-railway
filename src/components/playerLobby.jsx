@@ -26,12 +26,13 @@ const PlayerLobby = () => {
 
   return (
     <>
+    {game && game.remoteMode &&(
     <button className='mute-button' onClick={toggleMute}>{muted ? (
       <img src='./assets/img/silenciar.png' alt="Sonido silenciado" />
     ) : (
       <img src='./assets/img/activar.png' alt="Sonido activado" />
     )}</button>
-
+    )}
     <div className='lobby-container'>
       {game && game.remoteMode && (
         <>
