@@ -84,16 +84,23 @@ const PlayerQuestion = () => {
       <audio id='lobby-music' src={audioSrc} autoPlay ref={audioRef} />
       </>
       )}
-      <div className='form-top'>
+      {game && !game.remoteMode &&(
         <div className="form-verify_countdown">
           <h1><Countdown date={targetDate} renderer={({ minutes, seconds }) => formatTime({ minutes, seconds })} onComplete={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}/></h1>
         </div>
+      )}
+        {game && game.remoteMode &&(
+                <div className='form-top'>
+                <div className="form-verify_countdown">
+                  <h1><Countdown date={targetDate} renderer={({ minutes, seconds }) => formatTime({ minutes, seconds })} onComplete={() => socket.emit('timeUp',JSON.stringify({pin: game.pin}))}/></h1>
+                </div>
         <button className='mute-button' onClick={toggleMute}>{muted ? (
         <img src='./assets/img/silenciar.png' alt="Sonido silenciado" />
         ) : (
         <img src='./assets/img/activar.png' alt="Sonido activado" />
-        )}</button> 
-      </div>
+        )}</button>
+        </div>
+        )}
         {game && game.remoteMode &&(
         <div className='question-content'>
           <p>{question.pregunta}</p>
