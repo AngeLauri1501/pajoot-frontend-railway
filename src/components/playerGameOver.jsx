@@ -25,7 +25,7 @@ const PlayerGameOver = () => {
       <h1>¡Se acabó el juego!</h1>
       {playerPosition !== null && playerPosition <= 3 ? (
         <>
-          <p>¡Enhorabuena! Has quedado </p><h1>{playerPosition}º</h1>
+          <p>¡Enhorabuena! Has quedado </p><h2>{playerPosition}º</h2>
           <img src='./assets/gif/cat-win.gif' className='streak-image' alt='Gato victorioso' />
         </>
       ) : (
