@@ -30,11 +30,17 @@ a {
     color: #FFF;
     font-family: "Montserrat";
 }
-h1 {
+h1,
+h2 {
     font-family: "Rancho";
     font-size: 88px;
     margin: 0 0 16px 0;
     color: #1C1C1C;
+}
+h2 {
+    font-size: 72px;
+    line-height: 100%;
+    margin: 0;
 }
 hr {
     width: 70%;
@@ -57,7 +63,7 @@ hr {
         outline: none;
     }
     img {
-        height: 56px;
+        height: 40px;
         width: auto;
     }
 }
@@ -470,7 +476,7 @@ hr {
     }
     p {
         font-size: 20px;
-        font-weight: 400;
+        font-weight: 600;
         margin: 0;
     }
     .form-top {
@@ -499,6 +505,10 @@ hr {
                 border: none;
             }
         }
+    }
+    .cat-waiting {
+        height: auto;
+        width: 400px;
     }
     .question-content {
         display: flex;
@@ -559,6 +569,7 @@ hr {
 }
 .question-container {
     padding: 0;
+    margin-bottom: 64px;
     .form-verify_countdown {
         margin: 16px 0;
     }
@@ -571,7 +582,7 @@ hr {
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            height: 180px;
+            height: 160px;
             width: 480px;
             color: #1C1C1C;
             font-family: "Montserrat";
@@ -636,12 +647,11 @@ hr {
     }
     .question-answered {
         align-self: flex-start;
-        margin: 24px;
+        margin: 0 0 24px 24px;
         .question-players{
             font-size: 56px;
         }
         .question-score {
-            margin-top: 32px;
             font-size: 56px;
         }
     }
@@ -658,8 +668,8 @@ hr {
         margin: 0;
     }
     img {
-        width: 305px;
-        height: auto;
+        width: auto;
+        height: 400px;
     }
 }
 .admin-close {
@@ -767,8 +777,13 @@ hr {
                     background-color:#016a81;
                     align-items: flex-end;
                     justify-content: center;
+                    box-shadow: 2px 2px 8px #003946;
+                    border: 0.5px solid #165c6d;
                     .id-number-content {
-                        margin: 0 0 16px 0;
+                        margin: 0 0 22px 0;
+                        font-size: 72px;
+                        width: fit-content;
+                        line-height: 100%;
                     }
                 }
                 .ranking-image {
@@ -1131,4 +1146,3 @@ hr {
         }
     }
 }
-  
