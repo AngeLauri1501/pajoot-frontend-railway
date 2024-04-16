@@ -37,7 +37,7 @@ const HostTimeUp= () => {
         ))}
         </ul>
       </div>
-        <button className='question-button_next' onClick={() => socket.emit('nextQuestion',JSON.stringify({pin:game.pin}))}>Siguiente Pregunta</button>
+        <button className='question-button_next' onClick={() => socket.emit('nextQuestion',JSON.stringify({pin:game.pin}))}>Siguiente</button>
     </div>
     </>
   );
