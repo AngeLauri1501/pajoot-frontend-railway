@@ -34,7 +34,7 @@ const HostGameOver = () => {
             </li>
           ))}
         </ul>
-        <button className='return-button' onClick={(handleCloseGame)}>Volver a Inicio</button>
+        <button className='return-button' onClick={(handleCloseGame)}>Volver al Inicio</button>
       </div>
     </div>
   );
