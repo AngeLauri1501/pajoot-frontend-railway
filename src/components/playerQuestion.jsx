@@ -58,7 +58,6 @@ const PlayerQuestion = () => {
   const [questionAnswered, setQuestionAnswered] = useState(false);
   const score = game.gameData.players.players.find((player) => player.playerId == userLogged.uid).gameData.score;
   const audioRef = useRef(false);
-  const audioPath = `../../public/assets/sounds/question-groovy-${game.timeLimit}.mp3`;
 
   useEffect(() => {
     if (audioRef.current && !muted) {
