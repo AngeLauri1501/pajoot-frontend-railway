@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { socket } from '../socket';
 import useStore from '../store';
 
 const PlayerGameOver = () => {
   const { game, userLogged } = useStore();
   const [playerPosition, setPlayerPosition] = useState(null);
-    // Obtener la lista de jugadores del juego
+  // Obtener la lista de jugadores del juego
   const players = game.gameData.players.players;
 
   // Ordenar los jugadores por puntuación
@@ -27,7 +28,7 @@ const PlayerGameOver = () => {
     }
   }, [game, userLogged]);
 
-return (
+  return (
     <div className='time-out'>
       <h1>¡Se acabó el juego!</h1>
       <div className='time-out-remote'>
@@ -39,9 +40,10 @@ return (
             {topThreePlayers.map((player, index) => (
               <li className='ranking-player' key={player.playerId}>
                 <img className='ranking-image' src={player.photo} alt={player.name} />
-                {player.name}
+                <p className='player-name'>{player.name}</p>
+                <p className='player-score'>{(player.gameData.score).toFixed()}</p>
                 <div className='id-number'>
-                <p className='id-number-content'>{index + 1}</p>
+                  <p className='id-number-content'>{index + 1}</p>
                 </div>
               </li>
             ))}
@@ -56,12 +58,13 @@ return (
         </div>
       ) : (
         <div>
-        <p>Vaya, no te has clasificado...</p>
-        <img src='./assets/gif/cat-lose.gif' className='streak-image' alt='Gato perdedor' />
+          <p>Vaya, Has quedado </p><h2>{playerPosition}º</h2>
+          <img src='./assets/gif/cat-lose.gif' className='streak-image' alt='Gato perdedor' />
         </div>
       )}
 </div>
       <button className='return-button' onClick={() => window.location.href = '/'}>Volver al Inicio</button>
+    
     </div>
   );
 };
