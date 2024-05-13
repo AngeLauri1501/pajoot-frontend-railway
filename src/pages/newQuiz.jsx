@@ -3,7 +3,7 @@ import { socket } from '../socket';
 import useStore from '../store';
 import app from '../../firebaseConfig';
 import { getAuth, signOut } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link} from 'react-router-dom';
 
 const NewQuiz = () => {
   const { userLogged, setUserLogged, game, setGame } = useStore();
@@ -86,14 +86,14 @@ const NewQuiz = () => {
   return (
     <>
       <div className='menu-top'>
-        <a href='/'>
+        <Link to='/'>
           <img src='./assets/img/logo-pajoot.png' className='logo-pajoot' alt='Logo-Pajoot' />
-        </a>
+        </Link>
         {!userLogged && (
           <div className='user-info'>
-            <a href='/login' className='login-link'>
+            <Link to='/login' className='login-link'>
               Iniciar sesión
-            </a>
+            </Link>
             <img src='./assets/img/usuario-de-perfil.png' className='user-avatar' alt='Avatar-Usuario' />
           </div>
         )}
@@ -112,7 +112,7 @@ const NewQuiz = () => {
               </button>
               <div className='dropdown-content'>
                 <div className='triangle'></div>
-                <a href='/profile'>Editar Perfil</a>
+                <Link to='/profile'>Editar Perfil</Link>
                 <a href='' onClick={handleLogout}>
                   Cerrar Sesión
                 </a>
