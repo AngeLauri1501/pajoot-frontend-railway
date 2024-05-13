@@ -154,7 +154,7 @@ hr {
             }
             .user-avatar {
                 width: 190px;
-                height: auto;
+                height: 190px;
                 border: 1px solid #1C1C1C;
                 border-radius: 50%;
             }
@@ -620,6 +620,15 @@ hr {
             background-color: #D39927;
         }
     }
+    .host-buttons .question-button {
+        cursor:default;
+        &:hover {
+            filter: unset;
+        }
+        &:focus {
+            outline: none;
+        }
+    }
     .question-button_next {
         font-family: "Montserrat";
         font-size: 20px;
@@ -726,6 +735,7 @@ hr {
 .ranking-container {
     width: 500px;
     min-height: 540px;
+    min-width: unset;
 }
 .ranking-container,
 .podium-container {
@@ -771,6 +781,43 @@ hr {
 
             }
         }
+        .rest-players {
+            width: 100%;
+            border: 1px solid #003946;
+            border-radius: 4px;
+            padding: 16px;
+            .ranking-list {
+                gap: 16px;
+                margin: 0;
+                flex-wrap: wrap;
+                .ranking-player {
+                    width: fit-content;
+                    gap: 8px;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    border-right: 1px solid #003946;
+                    padding-right: 16px;
+                    p {
+                        font-size: 30px;
+                        margin: 0;
+                        color: #1C1C1C;          
+                    }
+                    .ranking-image {
+                        height: 50px;
+                        width: auto;
+                    }
+                    .player-name {
+                        font-family: "Montserrat";
+                        font-size: 20px;
+                    }
+                    .player-score {
+                        font-size: 20px;
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
     }
     .question-button_next {
         width: unset;
@@ -789,6 +836,21 @@ hr {
                 color: #1C1C1C;
                 font-weight: 600;
                 gap: 0;
+                .player-name {
+                    font-size: 48px;
+                    color: #1C1C1C;
+                    width: unset;
+                    margin: 0;
+                    line-height: 100%;
+                }
+                .player-score {
+                    font-size: 24px;
+                    color: #1C1C1C;
+                    font-family: "Montserrat";
+                    font-weight: 400;
+                    width: unset;
+                    margin: 0;
+                }
                 .id-number {
                     margin-top: 16px;
                     width: 100%;
@@ -798,6 +860,7 @@ hr {
                     box-shadow: 2px 2px 8px #003946;
                     border: 0.5px solid #165c6d;
                     .id-number-content {
+                        color: #FFF;
                         margin: 0 0 22px 0;
                         font-size: 72px;
                         width: fit-content;
@@ -884,6 +947,39 @@ hr {
     .form-login {
         align-items: flex-start;
     }
+    .load-file {
+        position: relative;
+        display: inline-block;
+        width: 120px;
+        cursor: pointer;
+        margin-bottom: 4px;
+        &:before {
+            content: 'Subir Archivo';
+            background-color: #1688A1;
+            border-style: none;
+            border-color: #037189;
+            box-shadow: 2px 2px 2px 0 #003946;
+            color: #FFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            position: absolute;
+            inset: 0;
+            cursor: pointer;
+            &:hover {
+                background-color: #015669;
+            }
+
+        }
+        input[type=file] {
+            opacity: 0;
+            height: 40px;
+            width: 120px;
+            cursor: pointer;
+        }
+    }
+
 }
 .not-container {
     display: flex;
@@ -970,6 +1066,7 @@ hr {
         }
         .user-avatar {
             height: 40px;
+            width: 40px;
             border-radius: 50%;
         }
         .dropdown {
@@ -1164,3 +1261,4 @@ hr {
         }
     }
 }
+  
