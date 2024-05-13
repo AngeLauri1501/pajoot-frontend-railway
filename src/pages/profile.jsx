@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useStore from '../store';
 import { useMutation } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link} from 'react-router-dom';
 import app from '../../firebaseConfig';
 import { getAuth, signOut, updateProfile } from 'firebase/auth';
 import ProfileAvatar, { avatarsArray } from '../components/profileAvatar';
@@ -38,6 +38,12 @@ const Profile = () => {
         };
 
     }, [userLogged, navigate]);
+
+    useEffect(() => {
+        if (!userLogged) {
+            navigate('/');
+        }
+    }, []);
 
     const mutation = useMutation(async () => {
         let foto = userLogged.photoURL;
@@ -144,9 +150,9 @@ const Profile = () => {
         <>
         
             <div className='menu-top'>
-                <a href='/'>
+                <Link to='/'>
                     <img src='./assets/img/logo-pajoot.png' className="logo-pajoot" alt="Logo-Pajoot" />
-                </a>
+                </Link>
                 {userLogged && (
                 <div className='user-info'>
                     <div className={`dropdown ${dropdownOpen ? 'active' : ''}`} onClick={toggleDropdown}>
