@@ -4,7 +4,7 @@ import useStore from '../store';
 import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
-    const { userEmail, setUserEmail, verifiedEmail, setVerifiedEmail } = useStore();
+    const { userEmail, setUserEmail, verifiedEmail, setVerifiedEmail, userLogged, setUserLogged} = useStore();
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
@@ -38,7 +38,9 @@ const Create = () => {
         }
 
         let formdata = new FormData();
-        formdata.append('image', profileImage);
+        if (profileImage){
+            formdata.append('image', profileImage);
+        }
         formdata.append('email', verifiedEmail);
         formdata.append('user', user);
         formdata.append('password', password);
@@ -91,7 +93,13 @@ const Create = () => {
                         <input type="password" onChange={e => setPassword(e.currentTarget.value)} className="form-login_input" name="contrasenya" placeholder="Contraseña" pattern="^(?=.*[A-Z])(?=.*\d).{8,}$" required />
                         <p>Repite la contraseña</p>
                         <input type="password" onChange={e => setPassword2(e.currentTarget.value)} className="form-login_input" name="contrasenya" placeholder="Contraseña" pattern="^(?=.*[A-Z])(?=.*\d).{8,}$" required />
+                        <p>Añade una imagen</p>
+                        <div className='load-file'>
                         <input type="file" accept="image/*" onChange={handleImageChange} />
+                        </div>
+                        {profileImage && (
+                            <img src={URL.createObjectURL(profileImage)} alt="Profile" style={{ maxHeight: '140px' }} />
+                        )}
                         <input type='submit' className="form-login_button" value={mutation.isLoading ? 'Creando...' : 'Crear usuario'} disabled={mutation.isLoading} />
                         {error && <p className="error-message">{error}</p>}
                     </form>
