@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useMutation } from 'react-query';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate, Link} from 'react-router-dom'; 
 import useStore from '../store';
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import app from '../../firebaseConfig'; 
@@ -124,7 +124,7 @@ const Login = () => {
                     <input type='submit' className="form-login_button" value={mutation.isLoading ? 'Accediendo...' : 'Acceder'} disabled= {mutation.isLoading}/>
                 </form>
             </div>
-            <p className="register-text">Todavía no estás registrado?</p><br/><a href="/register" className="register-new">Regístrate aquí</a>
+            <p className="register-text">Todavía no estás registrado?</p><br/><Link to="/register" className="register-new">Regístrate aquí</Link>
             <hr/>
             <a className="login-google" onClick={signUpWithGoogle} ><img src="./assets/img/logo-google.png" alt="Logo-Google" /></a>
             <p>o</p>
