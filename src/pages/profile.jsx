@@ -13,6 +13,7 @@ const Profile = () => {
     const navigate = useNavigate(); 
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const auth = getAuth(app);
+    const [customAvatar, setCustomAvatar] = useState(null);
     const [profileImage, setProfileImage] = useState(null);
     const [selectedAvatar, setSelectedAvatar] = useState(userLogged ? userLogged.photoURL || null : null);
     const [showAvatarSelector, setShowAvatarSelector] = useState(false);
@@ -38,16 +39,37 @@ const Profile = () => {
 
     }, [userLogged, navigate]);
 
-    const mutation = useMutation(() => {
-        // Actualizar el nombre de usuario en Firebase
-        return updateProfile(auth.currentUser, { displayName: user })
-            .then(() => {
-                // Actualizar el estado global con el nuevo nombre de usuario
-                setUserLogged({ ...userLogged, displayName: user });
-            })
-            .catch((error) => {
-                setError(error.message);
+    const mutation = useMutation(async () => {
+        let foto = userLogged.photoURL;
+    
+        // Si hay una imagen personalizada seleccionada
+        if (customAvatar) {
+            // Crear formData para enviar la imagen al backend
+            const formData = new FormData();
+            formData.append('image', customAvatar);
+            formData.append('email', userLogged.email);
+    
+            // Hacer la petición al backend para subir la imagen a AWS y obtener la URL
+            const response = await fetch('https://pajoot-backend-railway-production.up.railway.app/api/upload-photo', {
+                method: 'POST',
+                body: formData,
+                // Asegúrate de configurar los encabezados adecuados según las necesidades de tu backend
             });
+    
+            if (response.ok) {
+                // Extraer la URL de la respuesta del backend
+                const data = await response.json();
+                foto = data.url; // Suponiendo que el campo que contiene la URL es "url"
+            } else {
+                throw new Error('Error al subir la imagen personalizada');
+            }
+        }
+    
+        // Actualizar el nombre de usuario y la foto de perfil en Firebase
+        return Promise.all([
+            updateProfile(auth.currentUser, { displayName: user, photoURL: foto }),
+            setUserLogged({ ...userLogged, displayName: user, photoURL: foto })
+        ]);
     });
 
     const handleInputChange = (e) => {
@@ -66,15 +88,29 @@ const Profile = () => {
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         setProfileImage(file);
-        console.log(file);
+        setCustomAvatar(null); // Restablecer customAvatar a null
+    };
+    
+    const handleCustomAvatarChange = (e) => {
+        const file = e.target.files[0];
+        setProfileImage(null); // Restablecer profileImage a null
+        setCustomAvatar(file);
+        console.log('Custom Avatar:', customAvatar);
     };
 
     const handleChooseAvatar = () => {
         setShowAvatarSelector(!showAvatarSelector);
     };
-    const handleSaveSelection = (selectedAvatar) => {
+    const handleSaveSelection = (selected) => {
         // Actualiza la imagen de perfil del usuario loggeado
-        setSelectedAvatar(selectedAvatar);
+        if (typeof selected === 'string') {
+            // Si es una URL, simplemente actualiza el estado
+            setSelectedAvatar(selected);
+        } else {
+            // Si es un archivo, crea una URL local y actualiza el estado
+            const avatarURL = URL.createObjectURL(selected);
+            setSelectedAvatar(avatarURL);
+        }
     };
     const handleSaveButtonClick = () => {
         // Actualiza la imagen de perfil del usuario loggeado al hacer clic en "Guardar"
@@ -89,6 +125,8 @@ const Profile = () => {
                 });
         }
         setShowAvatarSelector(false);
+        document.getElementById('customimgimput').value = null; // Limpiar el valor del input (para poder subir la misma imagen varias veces)
+        setCustomAvatar(null);
 
     };
 
@@ -132,10 +170,26 @@ const Profile = () => {
                     <form className="form-login form-create" onSubmit={handleSubmit}>
                         <p>Nombre</p>
                         <input type='text' className="form-login_input" name='nombre' placeholder="Nombre" maxLength={20} value={user} onChange={handleInputChange} required/>
-                        <p>Avatar</p>
-                        <img src={userLogged.photoURL === null ? './assets/img/usuario-de-perfil.png' : userLogged.photoURL} onChange={handleImageChange} className='user-avatar' alt='Avatar-Usuario' />
+                        <p>Imagen</p>
+                        {customAvatar === null ? (
+                            <img 
+                                src={userLogged.photoURL === null ? './assets/img/usuario-de-perfil.png' : userLogged.photoURL} 
+                                onChange={handleImageChange} 
+                                className='user-avatar' 
+                                alt='Avatar-Usuario' 
+                            />
+                        ) : (
+                            <img 
+                                src={URL.createObjectURL(customAvatar)} 
+                                className='user-avatar' 
+                                alt="Profile" 
+                            />
+                        )}
                         <button type='button' className='form-avatar_button' onClick={handleChooseAvatar}>Elegir otro</button>
-                        <input type='submit' className="form-login_button" value="Guardar"/>
+                        <div className='load-file'>
+                        <input type="file" accept="image/*" onChange={handleCustomAvatarChange} id='customimgimput'/>
+                        </div>
+                        <input type='submit' className="form-login_button" value={mutation.isLoading ? 'Guardando...' : 'Guardar'} disabled={mutation.isLoading}/>
                         {error && <p className="error-message">{error}</p>}
                     </form>
                     {showAvatarSelector && (
