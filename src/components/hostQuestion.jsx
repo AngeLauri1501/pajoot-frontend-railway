@@ -76,7 +76,7 @@ const toggleMute = () => {
           <p>{question.pregunta}</p>
         </div>
         {game.remoteMode &&(
-        <div className='question-buttons'>
+        <div className='question-buttons host-buttons'>
           <button className='question-button'><p>A)</p>{question.opciones.a}</button>
           <button className='question-button'><p>B)</p>{question.opciones.b}</button>
           <button className='question-button'><p>C)</p>{question.opciones.c}</button>
