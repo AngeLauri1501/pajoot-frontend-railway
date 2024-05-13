@@ -86,6 +86,12 @@ const Home = () => {
     const handleAnonJoin = (event) => {
 
         event.preventDefault();
+
+        if (!anonName.trim()) {
+            setError('Debes introducir un nombre');
+            setErrorImage('./assets/img/error-red.png');
+            return;
+        }
         
         const id = Math.floor(Math.random() * 900000) + 100000;
 
