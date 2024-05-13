@@ -1,3 +1,5 @@
+import { useNavigate, Link} from 'react-router-dom';
+
 const Notfound = () => {
     return (
         <>
@@ -10,7 +12,7 @@ const Notfound = () => {
                 </div>
                 <img src='/assets/img/NotFoundCat.png' className="404Image" alt="Not found image" />
             </div>
-            <a href="/" className="not-button">Volver a Inicio</a>
+            <Link to="/" className="not-button">Volver a Inicio</Link>
         </div>
         </>
     );
