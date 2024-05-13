@@ -13,6 +13,8 @@ const HostGameOver = () => {
 
   const topThreePlayers = sortedPlayers.slice(0, 3);
 
+  const restOfPlayers = sortedPlayers.slice(3, 10);
+
   function handleCloseGame(){
     socket.emit('closeGame', JSON.stringify({ pin: game.pin }));
     window.location.href = '/';
@@ -27,13 +29,26 @@ const HostGameOver = () => {
           {topThreePlayers.map((player, index) => (
             <li className='ranking-player' key={player.playerId}>
               <img className='ranking-image' src={player.photo} alt={player.name} />
-              {player.name}
+              <p className='player-name'>{player.name}</p>
+              <p className='player-score'>{(player.gameData.score).toFixed()}</p>
               <div className='id-number'>
-              <p className='id-number-content'>{index + 1}</p>
+                <p className='id-number-content'>{index + 1}</p>
               </div>
             </li>
           ))}
         </ul>
+        <div className='rest-players'>
+              <ul className='ranking-list'>
+              {/* Mapear y renderizar los jugadores en orden de puntuación */}
+              {restOfPlayers.map((player, index) => (
+              <li className='ranking-player' key={player.playerId}>
+              <p>{(index + 3) + 1}.</p>
+              <img className='ranking-image' src={player.photo} alt={player.playerName} />
+              <p className='player-name'>{player.name}:</p> <p className='player-score'>{(player.gameData.score).toFixed()}</p>
+              </li>
+              ))}
+              </ul>
+              </div>
         <button className='return-button' onClick={(handleCloseGame)}>Volver al Inicio</button>
       </div>
     </div>
