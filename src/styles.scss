@@ -531,7 +531,8 @@ hr {
     .lobby-player {
         .lobby-image {
             height: 80px;
-            width: auto;
+            width: 80px;
+            border-radius: 50%;
         }
     }
     .lobby-buttons {
